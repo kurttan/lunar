@@ -50,3 +50,6 @@ add the new virtualhost to /etc/apache2/sites-available/000-default.conf
 </VirtualHost>
 
 
+Adding the user authentication:
+/usr/bin/htpasswd -c /etc/htpasswd/.htpasswd bt
+
