@@ -53,3 +53,10 @@ add the new virtualhost to /etc/apache2/sites-available/000-default.conf
 Adding the user authentication:
 /usr/bin/htpasswd -c /etc/htpasswd/.htpasswd bt
 
+## Install docker
+wget -qO- https://get.docker.com/ | sh
+
+upgrade
+https://www.tecmint.com/upgrade-kernel-in-ubuntu/
+https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts
+
