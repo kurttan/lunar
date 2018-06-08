@@ -1,0 +1,52 @@
+curl -L https://www.opscode.com/chef/install.sh | bash
+wget http://github.com/opscode/chef-repo/tarball/master
+tar -zxf master
+mv chef-* chef-repo
+rm master
+cd chef-repo/
+mkdir .chef
+echo "cookbook_path [ '/root/chef-repo/cookbooks' ]" > .chef/knife.rb
+
+curl -s https://omnitruck.chef.io/install.sh | sudo bash -s -- -P chefdk
+
+cd cookbooks
+chef generate cookbook kt_transmission
+sudo apt-get install git
+git clone https://github.com/chef-cookbooks/build-essential.git
+git clone https://github.com/chef-cookbooks/transmission.git
+git clone https://github.com/chef-cookbooks/openssl.git
+
+vi ~/chef-repo/solo.rb
+#put following content:
+file_cache_path "/root/chef-solo"
+cookbook_path "/root/chef-repo/cookbooks"
+
+vi ~/chef-repo/kt_bootstrap.json
+
+{
+  "run_list": [ "recipe[kt_transmission]" ]
+}
+
+#run command 
+chef-solo -c solo.rb -j kt_bootstrap.json
+
+sudo apt-get install nmap
+
+
+sudo a2enmod proxy
+sudo a2enmod proxy_http
+sudo a2enmod proxy_balancer
+sudo a2enmod lbmethod_byrequests
+
+nano /etc/apache2/ports.conf
+add the new port 8888
+
+add the new virtualhost to /etc/apache2/sites-available/000-default.conf
+<VirtualHost *:8888>
+    ProxyPreserveHost On
+
+    ProxyPass / http://127.0.0.1:9091/
+    ProxyPassReverse / http://127.0.0.1:9091/
+</VirtualHost>
+
+
