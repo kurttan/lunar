@@ -59,4 +59,5 @@ wget -qO- https://get.docker.com/ | sh
 upgrade
 https://www.tecmint.com/upgrade-kernel-in-ubuntu/
 https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-16-04-lts
-
+http://blog.filerun.com/how-to-install-filerun-on-ubuntu-16/
+https://github.com/filebrowser/filebrowser
